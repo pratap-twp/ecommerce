@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+
+
+
+/* .icons a {
+  color: #bbb;
+  transition: color 0.2s ease;
+}
+
+.icons a:hover {
+  color: #0070f3;
+}
+
+.bottomSection {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #777;
+} */
+
+@media only screen and (max-width: 768px) {
+  .topSection {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
