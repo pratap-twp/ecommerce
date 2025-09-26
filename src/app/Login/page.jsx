@@ -1,19 +1,30 @@
+
+
 "use client";
 import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const Page = () => {
+export default function Page() {
+  const router = useRouter();
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form Submitted", form);
-    setForm({
-      username: "",
-      password: "",
+    const res = await signIn("credentials", {
+      redirect: false,
+      username: form.username,
+      password: form.password,
     });
+
+    if (res?.error) {
+      alert("Invalid username or password");
+    } else {
+      router.push("/"); 
+    }
   };
 
   const handleChange = (e) => {
@@ -34,54 +45,31 @@ const Page = () => {
           Login Form
         </h1>
 
-        
-        <div className="flex flex-col">
-          <label
-            htmlFor="username"
-            className="mb-1 text-sm font-medium text-gray-700"
-          >
-            Username:
-          </label>
-          <input
-            type="text"
-            placeholder="Enter username"
-            id="username"
-            value={form.username}
-            onChange={handleChange}
-            name="username"
-            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+          className="border p-2 rounded-lg"
+        />
 
-    
-        <div className="flex flex-col">
-          <label
-            htmlFor="password"
-            className="mb-1 text-sm font-medium text-gray-700"
-          >
-            Password:
-          </label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            id="password"
-            value={form.password}
-            onChange={handleChange}
-            name="password"
-            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <input
+          type="password"
+          placeholder="Enter password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+          className="border p-2 rounded-lg"
+        />
 
-        
         <button
           type="submit"
-          className="bg-blue-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Submit
         </button>
       </form>
     </div>
   );
-};
-
-export default Page;
+}

@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1758876766308,
+      "name": "Pratap kumar",
+      "username": "pk@gmail.com",
+      "password": "admin"
+    },
+    {
+      "id": 1758877145470,
+      "name": "karan",
+      "username": "karan@gmail.com",
+      "password": "karan"
+    }
+ 
+  ]
+}
