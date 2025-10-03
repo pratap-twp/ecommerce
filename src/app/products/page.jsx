@@ -4,6 +4,7 @@ import axiosInstance from "../lib/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../react-redux/slices/cartSlice";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -34,9 +35,12 @@ export default function ProductsPage() {
         quantity: 1, // always add 1 at a time
       })
     );
+
+
+     toast.success(`${product.title} added to cart!`);
   };
 
-  // Debug cart in console
+  
   useEffect(() => {
     console.log("🛒 Cart updated:", cart);
   }, [cart]);

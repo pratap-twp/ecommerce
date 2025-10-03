@@ -1,36 +1,41 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./slices/cartSlice";
 
-// Load from localStorage
+// Load state from localStorage (SSR-safe)
 const loadState = () => {
+  if (typeof window === "undefined") return undefined; // SSR: no localStorage
   try {
     const serializedState = localStorage.getItem("cartState");
-    if (serializedState === null) return undefined;
+    if (!serializedState) return undefined;
     return JSON.parse(serializedState);
   } catch (e) {
-    console.error("Could not load state", e);
+    console.error("Failed to load state", e);
     return undefined;
   }
 };
 
-// Save to localStorage
+// Save state to localStorage (SSR-safe)
 const saveState = (state) => {
+  if (typeof window === "undefined") return; // SSR: skip
   try {
-    const serializedState = JSON.stringify(state.cart); // save only cart
+    const serializedState = JSON.stringify(state.cart);
     localStorage.setItem("cartState", serializedState);
   } catch (e) {
-    console.error("Could not save state", e);
+    console.error("Failed to save state", e);
   }
 };
 
+// Initial state
 const preloadedState = {
-  cart: loadState() || {
+  cart: {
     items: [],
     totalQuantity: 0,
     totalAmount: 0,
+    ...loadState(), // merge persisted cart if exists
   },
 };
 
+// Configure store
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
@@ -38,9 +43,5 @@ export const store = configureStore({
   preloadedState,
 });
 
-// Subscribe to save on every change
-store.subscribe(() => {
-  saveState(store.getState());
-});
-
-
+// Subscribe to changes (SSR-safe)
+store.subscribe(() => saveState(store.getState()));

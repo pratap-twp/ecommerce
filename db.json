@@ -4,7 +4,8 @@
       "id": 1758876766308,
       "name": "Pratap kumar",
       "username": "pk@gmail.com",
-      "password": "admin"
+      "password": "admin",
+      "role":"admin"
     },
     {
       "id": 1758877145470,

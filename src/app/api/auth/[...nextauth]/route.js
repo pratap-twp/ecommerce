@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { readDB } from "@/lib/db";
-
-const handler = NextAuth({
+import { readDB } from "@/lib/db"; 
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -17,18 +16,14 @@ const handler = NextAuth({
             u.username === credentials?.username &&
             u.password === credentials?.password
         );
-
-        if (user) {
-          return { id: user.id, name: user.name, username: user.username };
-        }
+        if (user) return { id: user.id, name: user.name, username: user.username };
         return null;
       }
     })
   ],
-  pages: {
-    signIn: "/login"
-  },
+  pages: { signIn: "/login" },
   secret: process.env.NEXTAUTH_SECRET || "dev_secret"
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

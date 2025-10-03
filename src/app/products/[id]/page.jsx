@@ -24,6 +24,7 @@ console.log("products", product)
           <p className="text-2xl font-semibold text-blue-600 mt-6">
             ${product.price}
           </p>
+          <p className="text-2xl font-semibold text-zinc-400">Rating: {product.rating?.rate}</p>
 
           <div className="mt-6 flex gap-4">
             <AddToCartButton product={product} />

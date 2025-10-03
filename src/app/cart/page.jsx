@@ -60,10 +60,12 @@ export default function CartPage() {
                 </h2>
                 <p className="text-gray-600">Price: ${item.price}</p>
                 <p className="text-gray-600">Quantity: {item.quantity}</p>
+                <p className="text-gray-600">Total: {Math.round(item.quantity*item.price)}</p>
+
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-col sm:flex-row ">
               <button
                 onClick={() => handleDecrease(item.id)} 
                 className="px-3 py-1 bg-gray-400 text-white rounded-lg shadow hover:bg-gray-500 cursor-pointer"

@@ -11,10 +11,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import axiosInstance from "./lib/axiosInstance";
 
+
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
 
   const fetchProducts = async () => {
     try {
@@ -89,6 +91,9 @@ export default function Home() {
                 <button className="w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition cursor-pointer">
                   View
                 </button>
+
+
+               
               </div>
             </div>
           ))}
